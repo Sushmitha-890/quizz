@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Form Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quiz-container {
+            width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f718ac;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option-btn {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .option-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Dance Form Quiz</h1>
+        <div id="question"></div>
+        <div class="options" id="options"></div>
+        <div id="result"></div>
+        <button id="next-btn" style="display: none;">Next</button>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgYY6O0yUdmTFUY_6UBnUTThCs2KMu_zlwkg&s",
+                options: ["Kathak", "Bharatanatyam", "Odissi", "Kuchipudi"],
+                answer: "Bharatanatyam"
+            },
+            {
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ-LaCxR7BxzyUIbDHjac7bX1d9GWSukEoyA&s",
+                options: ["Kathak", "Bharatanatyam", "Odissi", "Kuchipudi"],
+                answer: "Kathak"
+            },
+            {
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQOud4dBpaBkJ02hknYurUfwdj60nW8BcpCw&s",
+                options: ["Kathak", "Bharatanatyam", "Odissi", "Kuchipudi"],
+                answer: "Odissi"
+            },
+            {
+                image: "https://i.pinimg.com/736x/7f/da/de/7fdadec5d70d90333af89b6c77a4eb24.jpg",
+                options: ["Kathak", "Bharatanatyam", "Odissi", "Kuchipudi"],
+                answer: "Kuchipudi"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const nextButton = document.getElementById('next-btn');
+        const resultElement = document.getElementById('result');
+
+        function loadQuestion() {
+            const currentQuizData = quizData[currentQuestion];
+            questionElement.innerHTML = `<img src="${currentQuizData.image}" alt="Dance Form Image" style="max-width: 100%;">`;
+
+            optionsElement.innerHTML = '';
+            currentQuizData.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('option-btn');
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(answer) {
+            const currentQuizData = quizData[currentQuestion];
+            if (answer === currentQuizData.answer) {
+                score++;
+            }
+
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionElement.innerHTML = '';
+            optionsElement.innerHTML = '';
+            nextButton.style.display = 'none';
+
+            // Display the user's final score
+            resultElement.innerHTML = `<p>You scored ${score} out of ${quizData.length}.</p>`;
+        }
+
+        loadQuestion();
+        nextButton.addEventListener('click', loadQuestion);
+    </script>
+</body>
+</html>

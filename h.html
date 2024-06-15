@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Identification Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(161, 199, 242);
+        }
+
+        .quiz-container {
+            margin: 50px auto;
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgb(238, 82, 165);
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: rgb(234, 134, 235);
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: rgb(200, 100, 200);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Sports  Identification Quiz</h1>
+    <div id="question"></div>
+    <div id="options"></div>
+    <button id="next-btn" style="display: none;">Next</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            image: "https://tse3.mm.bing.net/th?id=OIP.ZsvT_ijNVEMERBfT2qTOlgHaE7&pid=Api&P=0&h=180",
+            options: ["Basketball", "Golf", "Hockey", "Kabaddi"],
+            answer: "Golf"
+        },
+        {
+            image: "https://tse3.mm.bing.net/th?id=OIP.8TdVNEVQNyAXtVEBcnupmQHaEk&pid=Api&P=0&h=180",
+            options: ["Basketball", "Golf", "Hockey", "Kabaddi"],
+            answer: "Kabaddi"
+        },
+        {
+            image: "https://tse2.mm.bing.net/th?id=OIP.q-u-zr0kgvD541XJ5LKH2wHaE8&pid=Api&P=0&h=180",
+            options: ["Basketball", "Golf", "Hockey", "Kabaddi"],
+            answer: "Hockey"
+        },
+        {
+            image: "https://tse1.mm.bing.net/th?id=OIP.6XgcjLWrFOLQx69uwSsDvAHaEK&pid=Api&P=0&h=180",
+            options: ["Basketball", "Golf", "Hockey", "Kabaddi"],
+            answer: "Basketball"
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+    const nextButton = document.getElementById('next-btn');
+    const resultElement = document.getElementById('result');
+
+    function loadQuestion() {
+        const currentQuizData = quizData[currentQuestion];
+        questionElement.innerHTML = `<img src="${currentQuizData.image}" alt="Sport Image">`;
+
+        optionsElement.innerHTML = '';
+        currentQuizData.options.forEach(option => {
+            const button = document.createElement('button');
+            button.innerText = option;
+            button.classList.add('option-btn');
+            button.addEventListener('click', () => checkAnswer(option));
+            optionsElement.appendChild(button);
+        });
+    }
+
+    function checkAnswer(answer) {
+        const currentQuizData = quizData[currentQuestion];
+        if (answer === currentQuizData.answer) {
+            score++;
+        }
+
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        questionElement.innerHTML = '';
+        optionsElement.innerHTML = '';
+        nextButton.style.display = 'none';
+
+        // Display the user's final score
+        resultElement.innerHTML = `You scored ${score} out of ${quizData.length}.`;
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>

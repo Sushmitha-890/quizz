@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .j {
+            height: 420px;
+            width: 400px;
+            background-color: rgb(227, 236, 236);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+            margin: auto;
+            padding: 20px;
+        }
+        body {
+            background-color: rgb(201, 177, 224);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #c4ffdb;
+            border-radius: 7px;
+            font-size: 20px; /* Changed font size */
+            height: 60px; /* Increased height */
+            transition: border-color 0.3s;
+        }
+        .input-field:focus {
+            border-color: #6bbd97;
+            outline: none;
+        }
+        #y {
+            height: 50px;
+            width: 350px;
+            color: rgb(226, 43, 43);
+            border-radius: 30px;
+            background-color: rgb(179, 178, 240);
+            border: none;
+            cursor: pointer;
+            font-size: 20px; /* Changed font size */
+        }
+        #y:hover {
+            background-color: #c4c4ff;
+        }
+        .forgot-password {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+        .forgot-password a {
+            color: #6bbd97;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .forgot-password a:hover {
+            color: #3a8d65;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="s">
+        <div class="j">
+            <h2><b><u>Login With Your Account</u></b></h2>
+            <input type="text" placeholder="User Name" id="username" class="input-field"/><br><br><br><br>
+            <input type="password" placeholder="Password" maxlength="15" id="password" class="input-field"/><br><br><br><br>
+            <button id="y" onclick="validateForm()">SIGN IN</button><br>
+            <div class="forgot-password">
+                Forgot Password? <a id="forgot-password-link" href="#">click here</a>
+            </div>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (!username || !password) {
+                errorMessage.textContent = 'Please fill out both fields.';
+                return false;
+            } else {
+                errorMessage.textContent = '';
+                alert('Login successful!');
+                window.location.href = 'category.html'; // Redirect to category.html
+                return true;
+            }
+        }
+
+        document.getElementById('forgot-password-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            alert('Set your password through the email sent to your registered email address.');
+        });
+    </script>
+</body>
+</html>
